@@ -7,6 +7,9 @@ export class Main {
     console.log('New Client Instance Created');
   }
   
+  public launchApp() {
+    this.router.handleRequest()
+  }
 }
 
-new Main();
+new Main().launchApp();
