@@ -13,6 +13,7 @@ export class Router {
           const mainController: MainController = new MainController();
           this.mainElement.append(mainController.createView());
         }
+        return;
     }
   }
 
