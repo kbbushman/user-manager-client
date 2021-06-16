@@ -1,4 +1,5 @@
-import { MainController } from "./controllers/MainController";
+import { LoginController } from './controllers/LoginController';
+import { MainController } from './controllers/MainController';
 
 export class Router {
   private mainElement = document.getElementById('root');
@@ -7,7 +8,13 @@ export class Router {
     console.log('Handling request...');
 
     switch (this.getRoute()) {
-
+      case '/login':
+        if (this.mainElement) {
+          this.mainElement.innerHTML = '';
+          const loginController = new LoginController();
+          this.mainElement.append(loginController.createView());
+        }
+        return;
       default:
         if (this.mainElement) {
           const mainController: MainController = new MainController();
@@ -17,7 +24,7 @@ export class Router {
     }
   }
 
-  private getRoute():string {
+  private getRoute(): string {
     return window.location.pathname;
   }
 }
