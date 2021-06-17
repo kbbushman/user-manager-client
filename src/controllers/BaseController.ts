@@ -1,5 +1,5 @@
 export abstract class BaseController {
-  protected container = document.createElement('div');
+  protected container = this.createElement('div');
 
   public abstract createView(): HTMLDivElement;
 
