@@ -7,22 +7,30 @@ export class LoginController extends BaseController {
   private password = this.createElement('label', 'Password ');
   private passwordInput = this.createElement('input');
   private errorLabel = this.createElement('label');
+
   private loginButton = this.createElement('button', 'Login', () => {
     if (this.usernameInput.value && this.passwordInput.value) {
-      this.errorLabel.style.visibility = 'hidden';
+      this.resetErrorLabel();
     } else {
-      this.errorLabel.innerText = 'Please enter your unsername and password';
-      this.errorLabel.style.visibility = 'visible';
+      this.showErrorLabe('Please enter your unsername and password');
     }
   });
+
+  private resetErrorLabel() {
+    this.errorLabel.style.color = 'red';
+    this.errorLabel.style.visibility = 'hidden';
+  }
+
+  private showErrorLabe(errorMessage: string) {
+    this.errorLabel.innerText = errorMessage;
+    this.errorLabel.style.visibility = 'visible';
+  }
 
   public createView(): HTMLDivElement {
     this.usernameInput.setAttribute('type', 'text');
     this.usernameInput.setAttribute('name', 'username');
     this.passwordInput.setAttribute('type', 'password');
     this.passwordInput.setAttribute('name', 'password');
-    this.errorLabel.style.color = 'red';
-    this.errorLabel.style.visibility = 'hidden';
 
     this.container.append(
       this.title,
