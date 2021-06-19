@@ -1,41 +1,43 @@
 import { BaseController } from './BaseController';
 
 export class LoginController extends BaseController {
+  private title = this.createElement('h2', 'Please Login to Continue');
+  private username = this.createElement('label', 'Username ');
+  private usernameInput = this.createElement('input');
+  private password = this.createElement('label', 'Password ');
+  private passwordInput = this.createElement('input');
+  private errorLabel = this.createElement('label');
+  private loginButton = this.createElement('button', 'Login', () => {
+    if (this.usernameInput.value && this.passwordInput.value) {
+      this.errorLabel.style.visibility = 'hidden';
+    } else {
+      this.errorLabel.innerText = 'Please enter your unsername and password';
+      this.errorLabel.style.visibility = 'visible';
+    }
+  });
+
   public createView(): HTMLDivElement {
-    const title = this.createElement('h2', 'Please Login to Continue');
-    const username = this.createElement('label', 'Username');
-
-    const usernameInput = this.createElement('input');
-    usernameInput.setAttribute('type', 'text');
-    usernameInput.setAttribute('name', 'username');
-
-    const password = this.createElement('label', 'Password');
-
-    const passwordInput = this.createElement('input');
-    passwordInput.setAttribute('type', 'password');
-    passwordInput.setAttribute('name', 'password');
-
-    const loginButton = this.createElement('button', 'Login', () => {
-      if (usernameInput.value && passwordInput.value) {
-        errorLabel.style.visibility = 'hidden';
-      } else {
-        errorLabel.innerText = 'Please enter your unsername and password';
-        errorLabel.style.visibility = 'visible';
-      }
-    });
-
-    const errorLabel = this.createElement('label');
-    errorLabel.style.color = 'red';
-    errorLabel.style.visibility = 'hidden';
+    this.usernameInput.setAttribute('type', 'text');
+    this.usernameInput.setAttribute('name', 'username');
+    this.passwordInput.setAttribute('type', 'password');
+    this.passwordInput.setAttribute('name', 'password');
+    this.errorLabel.style.color = 'red';
+    this.errorLabel.style.visibility = 'hidden';
 
     this.container.append(
-      title,
-      username,
-      usernameInput,
-      password,
-      passwordInput,
-      loginButton,
-      errorLabel
+      this.title,
+      this.username,
+      this.usernameInput,
+      this.createElement('br'),
+      this.createElement('br'),
+      this.password,
+      this.passwordInput,
+      this.createElement('br'),
+      this.createElement('br'),
+      this.loginButton,
+      this.createElement('br'),
+      this.createElement('br'),
+      this.errorLabel
     );
 
     return this.container;
