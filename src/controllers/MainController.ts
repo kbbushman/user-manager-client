@@ -9,7 +9,9 @@ export class MainController extends BaseController {
       'Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus aliquid nihil et, eius deserunt laboriosam. Dolores pariatur id fuga cupiditate sed tempore, repudiandae, qui vel quaerat corrupti, nihil necessitatibus aperiam esse omnis voluptatum ipsam blanditiis nostrum est velit! At illum optio deserunt dicta ipsa quas illo eius earum vero esse!'
     );
 
-    const button = this.createElement('button', 'Login');
+    const button = this.createElement('button', 'Login', () => {
+      this.router.switchToLoginView();
+    });
 
     this.container.append(title, article, button);
 
