@@ -13,8 +13,6 @@ export class MainController extends BaseController {
       this.router.switchToLoginView();
     });
 
-    this.container.append(title, article, button);
-
     return this.container;
   }
 }
