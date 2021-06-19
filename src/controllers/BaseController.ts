@@ -1,6 +1,6 @@
 import { Router } from './../Router';
 export abstract class BaseController {
-  protected container = this.createElement('div');
+  protected container = document.createElement('div');
   protected router: Router;
 
   public constructor(router: Router) {
@@ -22,6 +22,8 @@ export abstract class BaseController {
     if (action) {
       element.onclick = action;
     }
+
+    this.container.append(element);
 
     return element;
   }
