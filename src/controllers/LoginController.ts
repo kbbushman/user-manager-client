@@ -32,21 +32,7 @@ export class LoginController extends BaseController {
     this.passwordInput.setAttribute('type', 'password');
     this.passwordInput.setAttribute('name', 'password');
 
-    this.container.append(
-      this.title,
-      this.username,
-      this.usernameInput,
-      this.createElement('br'),
-      this.createElement('br'),
-      this.password,
-      this.passwordInput,
-      this.createElement('br'),
-      this.createElement('br'),
-      this.loginButton,
-      this.createElement('br'),
-      this.createElement('br'),
-      this.errorLabel
-    );
+    this.resetErrorLabel();
 
     return this.container;
   }
