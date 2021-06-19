@@ -9,18 +9,22 @@ export class Router {
 
     switch (this.getRoute()) {
       case '/login':
-        if (this.mainElement) {
-          this.mainElement.innerHTML = '';
-          const loginController = new LoginController();
-          this.mainElement.append(loginController.createView());
-        }
+        this.switchToLoginView();
         return;
       default:
         if (this.mainElement) {
-          const mainController: MainController = new MainController();
+          const mainController: MainController = new MainController(this);
           this.mainElement.append(mainController.createView());
         }
         return;
+    }
+  }
+
+  public switchToLoginView() {
+    if (this.mainElement) {
+      this.mainElement.innerHTML = '';
+      const loginController = new LoginController(this);
+      this.mainElement.append(loginController.createView());
     }
   }
 
