@@ -15,7 +15,18 @@ export class LoginController extends BaseController {
     passwordInput.setAttribute('type', 'password');
     passwordInput.setAttribute('name', 'password');
 
-    const loginButton = this.createElement('button', 'Login');
+    const loginButton = this.createElement('button', 'Login', () => {
+      if (usernameInput.value && passwordInput.value) {
+        errorLabel.style.visibility = 'hidden';
+      } else {
+        errorLabel.innerText = 'Please enter your unsername and password';
+        errorLabel.style.visibility = 'visible';
+      }
+    });
+
+    const errorLabel = this.createElement('label');
+    errorLabel.style.color = 'red';
+    errorLabel.style.visibility = 'hidden';
 
     this.container.append(
       title,
@@ -23,7 +34,8 @@ export class LoginController extends BaseController {
       usernameInput,
       password,
       passwordInput,
-      loginButton
+      loginButton,
+      errorLabel
     );
 
     return this.container;
