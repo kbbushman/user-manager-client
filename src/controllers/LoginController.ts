@@ -1,6 +1,9 @@
+import { LoginService } from './../services/LoginService';
 import { BaseController } from './BaseController';
 
 export class LoginController extends BaseController {
+  private loginService = new LoginService();
+
   private title = this.createElement('h2', 'Please Login to Continue');
   private username = this.createElement('label', 'Username ');
   private usernameInput = this.createElement('input');
@@ -9,11 +12,24 @@ export class LoginController extends BaseController {
   private passwordInput = this.createElement('input');
   private break2 = this.createElement('br');
 
-  private loginButton = this.createElement('button', 'Login', () => {
+  private loginButton = this.createElement('button', 'Login', async () => {
     if (this.usernameInput.value && this.passwordInput.value) {
       this.resetErrorLabel();
+
+      const result = await this.loginService.login(
+        this.usernameInput.value,
+        this.passwordInput.value
+      );
+
+      if (result) {
+        this.router.switchToDashboardView(result);
+      } else {
+        this.showErrorLabel(
+          'Username or password is incorrect. Please try again.'
+        );
+      }
     } else {
-      this.showErrorLabe('Please enter your unsername and password');
+      this.showErrorLabel('Please enter your unsername and password');
     }
   });
 
@@ -25,7 +41,7 @@ export class LoginController extends BaseController {
     this.errorLabel.style.visibility = 'hidden';
   }
 
-  private showErrorLabe(errorMessage: string) {
+  private showErrorLabel(errorMessage: string) {
     this.errorLabel.innerText = errorMessage;
     this.errorLabel.style.visibility = 'visible';
   }
