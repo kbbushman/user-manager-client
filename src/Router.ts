@@ -1,3 +1,5 @@
+import { DashboardController } from './controllers/DashboardController';
+import { SessionToken } from './models/AuthenticationModel';
 import { LoginController } from './controllers/LoginController';
 import { MainController } from './controllers/MainController';
 
@@ -10,6 +12,9 @@ export class Router {
     switch (this.getRoute()) {
       case '/login':
         this.switchToLoginView();
+        return;
+      case '/dashboard':
+        this.switchToDashboardView(undefined);
         return;
       default:
         if (this.mainElement) {
@@ -25,6 +30,21 @@ export class Router {
       this.mainElement.innerHTML = '';
       const loginController = new LoginController(this);
       this.mainElement.append(loginController.createView());
+    }
+  }
+
+  public switchToDashboardView(sessionToken: SessionToken | undefined) {
+    if (this.mainElement) {
+      this.mainElement.innerHTML = '';
+
+      const dashboardController: DashboardController = new DashboardController(
+        this
+      );
+
+      if (sessionToken) {
+        dashboardController.setSessionToken(sessionToken);
+      }
+      this.mainElement.append(dashboardController.createView());
     }
   }
 
