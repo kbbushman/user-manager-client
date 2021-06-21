@@ -5,3 +5,5 @@
 - TypeScript
 - HTML
 - CSS
+- JS
+
