@@ -2,6 +2,7 @@
 
 ### Technologies Used:
 
+- Webpack
 - TypeScript
 - HTML
 - CSS
