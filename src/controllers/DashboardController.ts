@@ -1,3 +1,4 @@
+import { DataService } from './../services/DataService';
 import { SessionToken, AccessRight } from './../models/AuthenticationModel';
 import { BaseController } from './BaseController';
 
@@ -5,6 +6,7 @@ export class DashboardController extends BaseController {
   private sessionToken: SessionToken | undefined;
   private searchArea: HTMLInputElement | undefined;
   private searchResultArea: HTMLDivElement | undefined;
+  private dataService: DataService = new DataService();
 
   public setSessionToken(sessionToken: SessionToken) {
     this.sessionToken = sessionToken;
@@ -43,6 +45,21 @@ export class DashboardController extends BaseController {
 
   private async triggerAction(access: AccessRight) {
     console.log(`${access} button clicked...`);
+    switch (access) {
+      case AccessRight.READ:
+        const users = await this.dataService.getUsers(
+          this.sessionToken!.tokenId,
+          this.searchArea!.value
+        );
+        console.log(users);
+
+        for (const user of users) {
+          this.searchResultArea!.append(
+            this.createElement('label', JSON.stringify(user))
+          );
+          this.searchResultArea?.append(document.createElement('br'));
+        }
+    }
   }
 
   protected insertBreak() {
