@@ -54,9 +54,11 @@ export class DashboardController extends BaseController {
         console.log(users);
 
         for (const user of users) {
-          this.searchResultArea!.append(
-            this.createElement('label', JSON.stringify(user))
-          );
+          const label = this.createElement('label', JSON.stringify(user));
+          label.onclick = () => {
+            label.classList.toggle('selected-label');
+          };
+          this.searchResultArea!.append(label);
           this.searchResultArea?.append(document.createElement('br'));
         }
     }
