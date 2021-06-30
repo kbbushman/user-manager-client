@@ -9,6 +9,7 @@ export class DashboardController extends BaseController {
   private searchResultArea: HTMLDivElement | undefined;
   private dataService: DataService = new DataService();
   private selectedUser: User | undefined;
+  private selectedLabel: HTMLLabelElement | undefined;
 
   public setSessionToken(sessionToken: SessionToken) {
     this.sessionToken = sessionToken;
@@ -61,6 +62,7 @@ export class DashboardController extends BaseController {
           label.onclick = () => {
             label.classList.toggle('selected-label');
             this.selectedUser = user;
+            this.selectedLabel = label;
           };
           this.searchResultArea!.append(label);
           this.searchResultArea?.append(document.createElement('br'));
@@ -72,6 +74,7 @@ export class DashboardController extends BaseController {
             this.sessionToken!.tokenId,
             this.selectedUser
           );
+          this.selectedLabel!.innerHTML = '';
         }
         break;
       default:
