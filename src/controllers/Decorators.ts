@@ -1,6 +1,6 @@
 import { BaseController } from './BaseController';
 
-export function LinkTextValue(element: HTMLInputElement) {
+export function LinkTextValue(elementId: string) {
   return function (target: BaseController, key: string) {
     let property = (target as any)[key];
 
@@ -9,12 +9,16 @@ export function LinkTextValue(element: HTMLInputElement) {
     };
 
     const setter = (newValue: any) => {
+      const element = document.getElementById(elementId);
       property = newValue;
-      element.innerText = newValue;
-      if (!newValue) {
-        element.style.visibility = 'visible';
-      } else {
-        element.style.visibility = 'hidden';
+
+      if (element) {
+        element.innerText = newValue;
+        if (newValue) {
+          element.style.visibility = 'visible';
+        } else {
+          element.style.visibility = 'hidden';
+        }
       }
     };
 
