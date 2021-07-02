@@ -1,5 +1,6 @@
 import { LoginService } from './../services/LoginService';
 import { BaseController } from './BaseController';
+import { LinkTextValue } from './Decorators';
 
 export class LoginController extends BaseController {
   private loginService = new LoginService();
@@ -14,7 +15,7 @@ export class LoginController extends BaseController {
 
   private loginButton = this.createElement('button', 'Login', async () => {
     if (this.usernameInput.value && this.passwordInput.value) {
-      this.resetErrorLabel();
+      this.errorLabelText = '';
 
       const result = await this.loginService.login(
         this.usernameInput.value,
@@ -24,35 +25,27 @@ export class LoginController extends BaseController {
       if (result) {
         this.router.switchToDashboardView(result);
       } else {
-        this.showErrorLabel(
-          'Username or password is incorrect. Please try again.'
-        );
+        this.errorLabelText =
+          'Username or password is incorrect. Please try again.';
       }
     } else {
-      this.showErrorLabel('Please enter your unsername and password');
+      this.errorLabelText = 'Please enter your unsername and password';
     }
   });
 
   private break3 = this.createElement('br');
   private errorLabel = this.createElement('label');
 
-  private resetErrorLabel() {
-    this.errorLabel.style.color = 'red';
-    this.errorLabel.style.visibility = 'hidden';
-  }
-
-  private showErrorLabel(errorMessage: string) {
-    this.errorLabel.innerText = errorMessage;
-    this.errorLabel.style.visibility = 'visible';
-  }
+  @LinkTextValue('errorLabel')
+  private errorLabelText: string = '';
 
   public createView(): HTMLDivElement {
+    this.errorLabel.id = 'errorLabel';
+    this.errorLabel.style.color = 'red';
     this.usernameInput.setAttribute('type', 'text');
     this.usernameInput.setAttribute('name', 'username');
     this.passwordInput.setAttribute('type', 'password');
     this.passwordInput.setAttribute('name', 'password');
-
-    this.resetErrorLabel();
 
     return this.container;
   }
